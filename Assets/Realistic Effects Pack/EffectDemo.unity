@@ -160,7 +160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &114812818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14945,25 +14945,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 100000, guid: ece72d8f88edbed4f8dd5aa75a690ea3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: ece72d8f88edbed4f8dd5aa75a690ea3, type: 3}
       propertyPath: m_Name
       value: BlackFireball1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: ece72d8f88edbed4f8dd5aa75a690ea3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.337
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: ece72d8f88edbed4f8dd5aa75a690ea3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.195
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: ece72d8f88edbed4f8dd5aa75a690ea3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.27
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: ece72d8f88edbed4f8dd5aa75a690ea3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15007,6 +14991,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: ece72d8f88edbed4f8dd5aa75a690ea3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ece72d8f88edbed4f8dd5aa75a690ea3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.337
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ece72d8f88edbed4f8dd5aa75a690ea3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.195
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ece72d8f88edbed4f8dd5aa75a690ea3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ece72d8f88edbed4f8dd5aa75a690ea3, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: ece72d8f88edbed4f8dd5aa75a690ea3, type: 3}
