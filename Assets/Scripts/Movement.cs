@@ -23,12 +23,42 @@ public class Movement : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "weapon" )
+
+        Debug.Log(other.gameObject.name);
+
+        if (other.tag == "weapon")
         {
-            Debug.Log(other.tag);
-            transform.Find("Particles").gameObject.SetActive(true);
-            transform.Find("Donut").GetComponent<MeshRenderer>().enabled=false;
+            Collider[] colliders;
+            colliders = transform.GetComponentsInChildren<Collider>();
+            foreach (Collider collider in colliders)
+            {
+                collider.enabled = false;
+            }
+
+            switch (other.gameObject.layer)
+            {
+                case 9:
+                    transform.Find("GoodParticles").gameObject.SetActive(true);
+                    transform.Find("Donut").GetComponent<MeshRenderer>().enabled = false;
+                    OnTargetSuccess();
+                    break;
+                case 10:
+                    transform.Find("BadParticles").gameObject.SetActive(true);
+                    transform.Find("Donut").GetComponent<MeshRenderer>().enabled = false;
+                    OnTargetFail();
+                    break;
+            }
         }
+    }
+
+    void OnTargetSuccess()
+    {
+        Debug.Log("Donut stabbed successfully");
+    }
+
+    void OnTargetFail()
+    {
+        Debug.Log("Donut slashed, oops");
     }
 
 
