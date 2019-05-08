@@ -41,15 +41,15 @@ public class ComboController : MonoBehaviour
         comboTimer = 0f;
         currentTarget = 0;
         currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 2f, 0));
-        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 3f, 0));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 3f, 1));
         currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 4f, 0));
-        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 5f, 0));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 5f, 1));
         currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 6f, 0));
         currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 7f, 0));
-        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 8f, 0));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 8f, 1));
         currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 9f, 0));
-        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 10f, 0));
-        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 11f, 0));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 10f,1));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 11f, 1));
         currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 12f, 0));
         //currentCombo = comboList[comboId];
     }
