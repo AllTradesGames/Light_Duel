@@ -40,17 +40,17 @@ public class ComboController : MonoBehaviour
     {
         comboTimer = 0f;
         currentTarget = 0;
-        currentCombo.Add(new Target(new Vector3(Random.Range(-1f, 1f), Random.Range(1f, 2f), 10f), 2f, 0));
-        currentCombo.Add(new Target(new Vector3(Random.Range(-1f, 1f), Random.Range(1f, 2f), 10f), 3f, 0));
-        currentCombo.Add(new Target(new Vector3(Random.Range(-1f, 1f), Random.Range(1f, 2f), 10f), 4f, 0));
-        currentCombo.Add(new Target(new Vector3(Random.Range(-1f, 1f), Random.Range(1f, 2f), 10f), 5f, 0));
-        currentCombo.Add(new Target(new Vector3(Random.Range(-1f, 1f), Random.Range(1f, 2f), 10f), 6f, 0));
-        currentCombo.Add(new Target(new Vector3(Random.Range(-1f, 1f), Random.Range(1f, 2f), 10f), 7f, 0));
-        currentCombo.Add(new Target(new Vector3(Random.Range(-1f, 1f), Random.Range(1f, 2f), 10f), 8f, 0));
-        currentCombo.Add(new Target(new Vector3(Random.Range(-1f, 1f), Random.Range(1f, 2f), 10f), 9f, 0));
-        currentCombo.Add(new Target(new Vector3(Random.Range(-1f, 1f), Random.Range(1f, 2f), 10f), 10f, 0));
-        currentCombo.Add(new Target(new Vector3(Random.Range(-1f, 1f), Random.Range(1f, 2f), 10f), 11f, 0));
-        currentCombo.Add(new Target(new Vector3(Random.Range(-1f, 1f), Random.Range(1f, 2f), 10f), 12f, 0));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 2f, 0));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 3f, 1));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 4f, 0));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 5f, 1));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 6f, 0));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 7f, 0));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 8f, 1));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 9f, 0));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 10f,1));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 11f, 1));
+        currentCombo.Add(new Target(new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.8f), 26f), 12f, 0));
         //currentCombo = comboList[comboId];
     }
     // Update is called once per frame
@@ -60,7 +60,9 @@ public class ComboController : MonoBehaviour
         while (comboTimer >= currentCombo[currentTarget].shoot)
         {
             // Instantiate it
-            GameObject target = Instantiate(targetPreFabs[currentCombo[currentTarget].type], currentCombo[currentTarget].location, Quaternion.identity);
+            GameObject target = Instantiate(targetPreFabs[currentCombo[currentTarget].type], Vector3.zero, Quaternion.identity, transform);
+            target.transform.localPosition = new Vector3(currentCombo[currentTarget].location.x, currentCombo[currentTarget].location.y);
+            target.transform.parent = null;
             Movement targetScript = target.GetComponent<Movement>();
             if (targetScript != null)
             {

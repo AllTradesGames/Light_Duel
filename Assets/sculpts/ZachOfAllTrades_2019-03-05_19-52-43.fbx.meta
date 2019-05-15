@@ -1,56 +1,9 @@
 fileFormatVersion: 2
-guid: 6b80f0e10d774ff4fbb0f52343c32597
+guid: 15a10e3ea6b71134bbeee2ff44f73e6e
 ModelImporter:
   serializedVersion: 25
-  internalIDToNameTable:
-  - first:
-      1: 100000
-    second: Layer_1_1_1
-  - first:
-      1: 100002
-    second: Layer_2
-  - first:
-      1: 100004
-    second: //RootNode
-  - first:
-      4: 400000
-    second: Layer_1_1_1
-  - first:
-      4: 400002
-    second: Layer_2
-  - first:
-      4: 400004
-    second: //RootNode
-  - first:
-      21: 2100000
-    second: No Name
-  - first:
-      23: 2300000
-    second: Layer_1_1_1
-  - first:
-      23: 2300002
-    second: Layer_2
-  - first:
-      33: 3300000
-    second: Layer_1_1_1
-  - first:
-      33: 3300002
-    second: Layer_2
-  - first:
-      43: 4300000
-    second: Layer_1_1_1
-  - first:
-      43: 4300002
-    second: Layer_2
-  - first:
-      41386430: 2186277476908879412
-    second: ImportLogs
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: c83f393843723d943b213af572639afa, type: 2}
+  internalIDToNameTable: []
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -78,7 +31,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
