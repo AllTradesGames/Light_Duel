@@ -30,5 +30,5 @@ Material:
     - _TintStrength: 7
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _CoreColor: {r: 1, g: 0.39310342, b: 0, a: 0.5019608}
-    - _TintColor: {r: 1, g: 0.6831642, b: 0.47794116, a: 1}
+    - _CoreColor: {r: 0.107467055, g: 0.6509434, b: 0.13235916, a: 0.6784314}
+    - _TintColor: {r: 0.8679245, g: 0.8638305, b: 0.8638305, a: 1}
