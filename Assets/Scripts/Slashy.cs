@@ -21,11 +21,12 @@ public class Slashy : MonoBehaviour
     }
      void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Target" )
+        Debug.Log("Slashy triggered");
+        if (other.tag == "dorito" )
         {
-            Debug.Log(other.tag);
             UnityEngine.Plane plane = new UnityEngine.Plane(swordPoint.position, swordHilt.position, lastPoint);
             GameObject[] sliceyBoys = other.gameObject.SliceInstantiate(lastPoint, plane.normal);
+            Debug.Log(sliceyBoys);
             for(int i = 0; i < sliceyBoys.Length; i++)
             {
                 sliceyBoys[i].AddComponent<SlicesScript>();

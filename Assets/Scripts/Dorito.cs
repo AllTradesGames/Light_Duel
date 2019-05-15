@@ -9,8 +9,6 @@ public class Dorito : Movement
     void OnTriggerEnter(Collider other)
     {
 
-        Debug.Log(other.gameObject.name);
-
         if (other.tag == "weapon")
         {
             Collider[] colliders;
@@ -22,14 +20,16 @@ public class Dorito : Movement
 
             switch (other.gameObject.layer)
             {
-                case 9:
+                case 11:
+            
                     transform.Find("GoodParticles").gameObject.SetActive(true);
-                    transform.Find("Donut").GetComponent<MeshRenderer>().enabled = false;
+                    transform.Find("Dorito").GetComponent<MeshRenderer>().enabled = false;
                     OnTargetSuccess();
                     break;
                 case 10:
+                    
                     transform.Find("BadParticles").gameObject.SetActive(true);
-                    transform.Find("Donut").GetComponent<MeshRenderer>().enabled = false;
+                    transform.Find("Dorito").GetComponent<MeshRenderer>().enabled = false;
                     OnTargetFail();
                     break;
             }
@@ -38,7 +38,7 @@ public class Dorito : Movement
         {
 
             transform.Find("BadParticles").gameObject.SetActive(true);
-            transform.Find("Donut").GetComponent<MeshRenderer>().enabled = false;
+            transform.Find("Dorito").GetComponent<MeshRenderer>().enabled = false;
             OnTargetFail();
         }
 
@@ -47,14 +47,14 @@ public class Dorito : Movement
 
     void OnTargetSuccess()
     {
-        Debug.Log("Dorito stabbed successfully");
+        Debug.Log("Dorito slashed successfully");
         Instantiate(AttackPreFab, transform.position, transform.rotation);
         // TODO: Call network spawn attack
     }
 
     void OnTargetFail()
     {
-        Debug.Log("Dorito slashed, oops");
+        Debug.Log("Dorito failed, oops");
     }
 
 

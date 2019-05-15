@@ -9,8 +9,6 @@ public class Donut : Movement
     void OnTriggerEnter(Collider other)
     {
 
-        Debug.Log(other.gameObject.name);
-
         if (other.tag == "weapon")
         {
             Collider[] colliders;

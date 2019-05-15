@@ -8,6 +8,8 @@ TagManager:
   - Fire
   - Enemy
   - death zone
+  - target
+  - dorito
   layers:
   - Default
   - TransparentFX
@@ -19,8 +21,8 @@ TagManager:
   - 
   - PostProcessing
   - Stab
+  - BadSlash
   - Slash
-  - 
   - 
   - 
   - 
