@@ -20,7 +20,7 @@ public class Donut : Movement
 
             switch (other.gameObject.layer)
             {
-                case 9:
+                case 11:
                     transform.Find("GoodParticles").gameObject.SetActive(true);
                     transform.Find("Donut").GetComponent<MeshRenderer>().enabled = false;
                     OnTargetSuccess();

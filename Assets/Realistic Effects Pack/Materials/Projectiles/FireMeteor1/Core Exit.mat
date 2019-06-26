@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Core
+  m_Name: Core Exit
   m_Shader: {fileID: 4800000, guid: fe01b83807a42f643a682f6b3bfa8dc9, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -29,5 +29,5 @@ Material:
     - _Opacity: 1
     - _R0: 0.05
     m_Colors:
-    - _Color: {r: 0.5514706, g: 0.5514706, b: 0.5514706, a: 1}
-    - _RimColor: {r: 1, g: 0.47586206, b: 0, a: 1}
+    - _Color: {r: 1, g: 0.8654536, b: 0, a: 1}
+    - _RimColor: {r: 1, g: 0, b: 0.020101547, a: 1}

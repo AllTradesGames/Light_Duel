@@ -10,6 +10,8 @@ TagManager:
   - death zone
   - target
   - dorito
+  - comet
+  - slash attack
   layers:
   - Default
   - TransparentFX
@@ -23,7 +25,7 @@ TagManager:
   - Stab
   - BadSlash
   - Slash
-  - 
+  - ouchie
   - 
   - 
   - 
