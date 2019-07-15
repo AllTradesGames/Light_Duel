@@ -5,6 +5,7 @@ using UnityEngine;
 public class Donut : Movement
 {
     public GameObject AttackPreFab;
+    public bool isLast;
 
     void OnTriggerEnter(Collider other)
     {
@@ -45,9 +46,11 @@ public class Donut : Movement
 
     void OnTargetSuccess()
     {
+        //TODO
         Debug.Log("Donut stabbed successfully");
         Instantiate(AttackPreFab, transform.position, transform.rotation);
         // TODO: Call network spawn attack
+        //GameControl.SpawnStab();
     }
 
     void OnTargetFail()

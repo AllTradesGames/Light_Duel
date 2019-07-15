@@ -5,6 +5,7 @@ using UnityEngine;
 public class AttackMovement : MonoBehaviour
 {
     public float speed = 10f;
+    public bool isLast;
     private Transform target;
     // Start is called before the first frame update
     void Start()

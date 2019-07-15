@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParryMovement : MonoBehaviour
+public class ParryMovement : AttackMovement
 {
-    public float speed = 10f;
     private Transform target;
     private bool isParried = false;
     private Vector3 lastPosition;
