@@ -111,7 +111,7 @@ public class GameControl : PlayerBehavior
             isHost = true;
             NetworkObject.Flush(networker); //Called because we are already in the correct scene!
             Debug.Log("Instantiate Player Server");
-            mgr.InstantiateMovementHead();
+            mgr.InstantiateMovementHead(0, new Vector3(2f, 2.5f, -31.26f), Quaternion.Euler(Vector3.zero));
         }
         else
         {
@@ -125,7 +125,7 @@ public class GameControl : PlayerBehavior
         NetworkObject.Flush(sender);
         MainThreadManager.Run(() => {
             Debug.Log("Instantiate Player Client");
-            mgr.InstantiateMovementHead();
+            mgr.InstantiateMovementHead(0, new Vector3(2f, 2.5f, 11.5f), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
         });
     }
 
