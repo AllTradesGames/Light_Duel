@@ -12,6 +12,8 @@ TagManager:
   - dorito
   - comet
   - slash attack
+  - right
+  - left
   layers:
   - Default
   - TransparentFX

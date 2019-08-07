@@ -11,8 +11,8 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindWithTag("Player").transform;
-        transform.LookAt(player.position);
+        //player = GameObject.FindWithTag("Player").transform;
+       // transform.LookAt(player.position);
         direction = transform.forward;
     }
 

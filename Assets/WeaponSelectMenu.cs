@@ -25,23 +25,48 @@ public class WeaponSelectMenu : MonoBehaviour
         switch (other.tag)
         {
             case "weapon":
+                AudioSource audio = GetComponent<AudioSource>();
+                if (audio != null)
+                {
+                    GameControl.audioSource.volume = audio.volume;
+                    GameControl.audioSource.pitch = audio.pitch;
+                    GameControl.audioSource.PlayOneShot(audio.clip);
+                }
                 switch (type)
                 {
                     case "Play":
                         controlScript.OnPlaySlash();
+                        transform.parent.Find("Explosion").gameObject.SetActive(true);
+                        transform.parent.Find("Ball").gameObject.SetActive(false);
                         break;
 
                     case "Weapon Select":
                         controlScript.OnWeaponSlash();
+                        transform.parent.Find("Explosion").gameObject.SetActive(true);
+                        transform.parent.Find("Ball").gameObject.SetActive(false);
                         break;
 
                     case "Exit":
                         controlScript.OnExitSlash();
+                        transform.parent.Find("Explosion").gameObject.SetActive(true);
+                        transform.parent.Find("Ball").gameObject.SetActive(false);
                         break;
 
+                    case "DUAL SWORDS":
+                        controlScript.OnDualSwordSlash();
+                        break;
+
+                    case "SWORD AND SHIELD":
+                        controlScript.OnSwordAndShieldSlash();
+                        break;
+
+                    case "Back":
+                        controlScript.OnBackSlash();
+                        break;
+
+                     
+
                 }
-                transform.parent.Find("Explosion").gameObject.SetActive(true);
-                transform.parent.Find("Ball").gameObject.SetActive(false);
                 break;
 
         }

@@ -14,19 +14,18 @@ public class MoveHead : MovementHeadBehavior
     {
         if (networkObject.IsOwner)
         {
-            Destroy(transform.Find("ATVRRemotePlayer").gameObject);
-            head = transform.Find("ATVRPlayerController/OVRCameraRig/TrackingSpace/CenterEyeAnchor");
-            leftHand = transform.Find("ATVRPlayerController/OVRCameraRig/TrackingSpace/LeftHandAnchor");
-            rightHand = transform.Find("ATVRPlayerController/OVRCameraRig/TrackingSpace/RightHandAnchor");
+            Destroy(transform.Find("RemotePlayer").gameObject);
+            head = transform.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor");
+            leftHand = transform.Find("OVRCameraRig/TrackingSpace/LeftHandAnchor");
+            rightHand = transform.Find("OVRCameraRig/TrackingSpace/RightHandAnchor");
         }
         else
         {
-            Destroy(transform.Find("ATVRPlayerController").gameObject);
-            Destroy(transform.Find("HUD Mount").gameObject);
-            transform.Find("ATVRRemotePlayer").gameObject.SetActive(true);
-            head = transform.Find("ATVRRemotePlayer/CenterEyeAnchor");
-            leftHand = transform.Find("ATVRRemotePlayer/LeftHandAnchor");
-            rightHand = transform.Find("ATVRRemotePlayer/RightHandAnchor");
+            Destroy(transform.Find("OVRCameraRig").gameObject);
+            transform.Find("RemotePlayer").gameObject.SetActive(true);
+            head = transform.Find("RemotePlayer/CenterEyeAnchor");
+            leftHand = transform.Find("RemotePlayer/LeftHandAnchor");
+            rightHand = transform.Find("RemotePlayer/RightHandAnchor");
         }
 
     }

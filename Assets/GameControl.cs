@@ -18,18 +18,32 @@ public class GameControl : PlayerBehavior
     public ushort portNumber = 5555;
     public bool useMainThreadManagerForRPCs = true;
     public GameObject networkManager = null;
+    public static AudioSource audioSource;
 
     private NetworkManager mgr = null;
     private NetWorker server;
-    private int hostChecks = 0;
+
+    private Coroutine findWifiHost = null;
+    private bool alreadyClient = false;
 
     private int health = 10;
+
+    private Transform right;
+    private Transform left;
+    private string selectedWeapon = "SWORD";
 
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        right = GameObject.FindGameObjectWithTag("right").transform;
+        left = GameObject.FindGameObjectWithTag("left").transform;
         ShowMenu(0);
-  
+
+        Application.runInBackground = true;
+
+        mgr = GetComponent<NetworkManager>();
+
         // Do any firewall opening requests on the operating system
         NetWorker.PingForFirewall(portNumber);
 
@@ -37,14 +51,19 @@ public class GameControl : PlayerBehavior
             Rpc.MainThreadRunner = MainThreadManager.Instance;
         
         NetWorker.localServerLocated += LocalServerLocated;
-        NetWorker.RefreshLocalUdpListings(portNumber);
+        findWifiHost = StartCoroutine(CheckForLocalHost());
     }
 
     private void LocalServerLocated(NetWorker.BroadcastEndpoints endpoint, NetWorker sender)
     {
-        Debug.Log("Found local server endpoint: " + endpoint.Address + ":" + endpoint.Port);
-        StopCoroutine("CheckForLocalHost");
-        ConnectToHost(endpoint.Address, endpoint.Port);
+        // Stop coroutine doesn't work here for SOME DUMB REASON
+        // StopCoroutine(findWifiHost);
+        if (!alreadyClient)
+        {
+            Debug.Log("Found local server endpoint: " + endpoint.Address + ":" + endpoint.Port);
+            ConnectToHost(endpoint.Address, endpoint.Port);
+        }
+        StopCoroutine(findWifiHost);
     }
 
     public void Host()
@@ -57,45 +76,57 @@ public class GameControl : PlayerBehavior
         {
             Debug.Log("Player " + player.NetworkId + " timed out");
         };
+        server.playerConnected += (player, sender) =>
+        {
+            Debug.Log("Player " + player.NetworkId + " connected");
+        };
         //LobbyService.Instance.Initialize(server);
-        isHost = true;
         Connected(server);
     }
 
     public void ConnectToHost(string ipAddress, ushort port)
     {
         NetWorker client = new UDPClient();
+        Debug.Log("Connecting");
         ((UDPClient)client).Connect(ipAddress, port);
+        Debug.Log("Connected");
+        alreadyClient = true;
         Connected(client);
     }
 
     public void Connected(NetWorker networker)
     {
+        Debug.Log("Connected as: " + (networker is IServer ? "host" : "client"));
         if (!networker.IsBound)
         {
             Debug.LogError("NetWorker failed to bind");
             return;
         }
 
-        if (mgr == null && networkManager == null)
-        {
-            Debug.LogWarning("A network manager was not provided, generating a new one instead");
-            networkManager = new GameObject("Network Manager");
-            mgr = networkManager.AddComponent<NetworkManager>();
-        }
-        else if (mgr == null)
-            mgr = Instantiate(networkManager).GetComponent<NetworkManager>();
-
+        Debug.Log("Initialize mgr");
         mgr.Initialize(networker, string.Empty, 15940, null);
 
         if (networker is IServer)
         {
+            isHost = true;
             NetworkObject.Flush(networker); //Called because we are already in the correct scene!
+            Debug.Log("Instantiate Player Server");
+            mgr.InstantiateMovementHead();
         }
-        if (!isHost)
+        else
         {
-            // TODO: Call OnOpponent found rpc
+            Debug.Log("Set accepted event Client");
+            networker.serverAccepted += OnAccepted;
         }
+    }
+
+    public void OnAccepted(NetWorker sender)
+    {
+        NetworkObject.Flush(sender);
+        MainThreadManager.Run(() => {
+            Debug.Log("Instantiate Player Client");
+            mgr.InstantiateMovementHead();
+        });
     }
 
     // Update is called once per frame
@@ -109,9 +140,12 @@ public class GameControl : PlayerBehavior
         HideMenu(0);
         StartMatchmaking();
     }
-    public void OnWeaponSlash()
+
+    public void OnWeaponSlash() 
     {
-        Debug.Log("This doesnt exist either yet");
+        Debug.Log("Pick your weapon");
+        HideMenu(0);
+        ShowMenu(1);
     }
 
     public void OnExitSlash()
@@ -120,9 +154,47 @@ public class GameControl : PlayerBehavior
         Application.Quit();
     }
 
+    public void OnDualSwordSlash()
+    {
+        Debug.Log("You picked dual wielding like a scrub");
+        right.Find("Viking sword").gameObject.SetActive(true);
+        left.Find("Viking sword").gameObject.SetActive(true);
+        right.Find("Shield").gameObject.SetActive(false);
+        left.Find("Shield").gameObject.SetActive(false);
+        selectedWeapon = "DUALSWORD";
+
+    }
+
+    public void OnSwordAndShieldSlash()
+    {
+        Debug.Log("coward");
+        if (right.Find("Shield").gameObject.active || right.Find("Viking sword").gameObject.active && left.Find("Viking sword").gameObject.active)
+        {
+            right.Find("Viking sword").gameObject.SetActive(true);
+            left.Find("Viking sword").gameObject.SetActive(false);
+            left.Find("Shield").gameObject.SetActive(true);
+            right.Find("Shield").gameObject.SetActive(false);
+        } else if (left.Find("Shield").gameObject.active)
+        {
+            left.Find("Viking sword").gameObject.SetActive(true);
+            right.Find("Viking sword").gameObject.SetActive(false);
+            right.Find("Shield").gameObject.SetActive(true);
+            left.Find("Shield").gameObject.SetActive(false);
+        }
+        selectedWeapon = "SWORD";
+    }
+
+    public void OnBackSlash()
+    {
+        HideMenu(1);
+        ShowMenu(0);
+    }
+    
+
     public void StartMatchmaking()
     {
         StartCoroutine("CheckForLocalHost");
+        OnOpponentFound();
     }
 
     private void OnOpponentFound()
@@ -134,7 +206,7 @@ public class GameControl : PlayerBehavior
                 // We go first
                 if (comboScript != null)
                 {
-                    comboScript.StartCombo("sword");
+                    comboScript.StartCombo(selectedWeapon);
                 }
             }
             else
@@ -211,13 +283,13 @@ public class GameControl : PlayerBehavior
 
     IEnumerator CheckForLocalHost()
     {
-        NetWorker.RefreshLocalUdpListings(portNumber);
-        if(++hostChecks > 6)
+        for (int ii = 0; ii < 3; ii++)
         {
-            StopCoroutine("CheckForLocalHost");
-            Host();
+            NetWorker.RefreshLocalUdpListings(portNumber);
+            yield return new WaitForSeconds(1);
         }
-        yield return new WaitForSeconds(1);
+        if (!alreadyClient)
+            Host();
     }
 
     public void SpawnStab(Vector3 pos, 

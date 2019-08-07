@@ -24,9 +24,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238279759464850088}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.737, y: -0.757, z: 1.343}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.03, y: -0.01, z: 0.01}
+  m_LocalScale: {x: 10, y: 10, z: 5}
   m_Children: []
   m_Father: {fileID: 8692683474815987875}
   m_RootOrder: 0
@@ -118,7 +118,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3659427924058552112}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.674, y: 4.03, z: 0}
+  m_LocalPosition: {x: -3.374, y: 4.787, z: -1.29}
   m_LocalScale: {x: 10, y: 10, z: 5}
   m_Children:
   - {fileID: 6470192377734211338}
@@ -4826,7 +4826,7 @@ ParticleSystem:
 --- !u!199 &7579300658848842716
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -9483,7 +9483,7 @@ ParticleSystem:
 --- !u!199 &7579300658848842714
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -9566,8 +9566,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7882068146366847839}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.71, y: -0.76, z: 1.26}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.02, y: -0.07, z: -0.03}
+  m_LocalScale: {x: 10, y: 10, z: 5}
   m_Children:
   - {fileID: 7579300658868158266}
   - {fileID: 7579300658868158256}
@@ -14147,7 +14147,7 @@ ParticleSystem:
 --- !u!199 &4061723351941229351
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -18911,7 +18911,7 @@ ParticleSystem:
 --- !u!199 &4077995851986736118
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -18997,7 +18997,7 @@ Transform:
   m_GameObject: {fileID: 8692683474816412803}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 5130228098942344875}
   - {fileID: 3659427924058057488}
@@ -19020,6 +19020,7 @@ MonoBehaviour:
   speed: 0
   AttackPreFab: {fileID: 2221389149711421155, guid: 54ae0fd2c7d322b41840be8156015f69,
     type: 3}
+  isLast: 0
 --- !u!54 &5590602507290824323
 Rigidbody:
   m_ObjectHideFlags: 0
