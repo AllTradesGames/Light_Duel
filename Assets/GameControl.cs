@@ -110,8 +110,8 @@ public class GameControl : PlayerBehavior
             NetworkObject.Flush(networker); //Called because we are already in the correct scene!
             Debug.Log("Instantiate Player Server");
             mgr.InstantiateMovementHead(0, new Vector3(2f, 2.5f, -31.26f), Quaternion.Euler(Vector3.zero));
-            comboScript.transform.parent.position = new Vector3(2f, 2.5f, -31.26f);
-            comboScript.transform.parent.rotation = Quaternion.Euler(Vector3.zero);
+            menuItems[0].transform.parent.position = new Vector3(2f, 2.5f, -31.26f);
+            menuItems[0].transform.parent.rotation = Quaternion.Euler(Vector3.zero);
             right = GameObject.FindGameObjectWithTag("right").transform;
             left = GameObject.FindGameObjectWithTag("left").transform;
         }
@@ -128,8 +128,8 @@ public class GameControl : PlayerBehavior
         MainThreadManager.Run(() => {
             Debug.Log("Instantiate Player Client");
             mgr.InstantiateMovementHead(0, new Vector3(2f, 2.5f, 11.5f), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
-            comboScript.transform.parent.position = new Vector3(2f, 2.5f, 11.5f);
-            comboScript.transform.parent.rotation = Quaternion.Euler(new Vector3(0f, 180f, 0f));
+            menuItems[0].transform.parent.position = new Vector3(2f, 2.5f, 11.5f);
+            menuItems[0].transform.parent.rotation = Quaternion.Euler(new Vector3(0f, 180f, 0f));
             right = GameObject.FindGameObjectWithTag("right").transform;
             left = GameObject.FindGameObjectWithTag("left").transform;
         });
@@ -144,7 +144,7 @@ public class GameControl : PlayerBehavior
     public void OnPlaySlash()
     {
         HideMenu(0);
-        StartMatchmaking();
+
     }
 
     public void OnWeaponSlash() 
@@ -195,13 +195,6 @@ public class GameControl : PlayerBehavior
         HideMenu(1);
         ShowMenu(0);
     }
-    
-
-    public void StartMatchmaking()
-    {
-        StartCoroutine("CheckForLocalHost");
-        OnOpponentFound();
-    }
 
     private void OnOpponentFound()
     {
@@ -212,7 +205,6 @@ public class GameControl : PlayerBehavior
                 // We go first
                 if (comboScript != null)
                 {
-                    comboScript.StartCombo(selectedWeapon);
                 }
             }
             else
