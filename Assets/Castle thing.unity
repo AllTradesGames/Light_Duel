@@ -69267,7 +69267,7 @@ MonoBehaviour:
   CubeForgeGameNetworkObject: []
   ExampleProximityPlayerNetworkObject: []
   MovementHeadNetworkObject:
-  - {fileID: 0}
+  - {fileID: 4056746517970662374, guid: 7b2b70ddf84c12a45b8a9712bc19c953, type: 3}
   NetworkCameraNetworkObject: []
   PlayerNetworkObject: []
   TestNetworkObject: []
