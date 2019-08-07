@@ -102,7 +102,6 @@ public class ComboController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        OVRManager.display.RecenterPose();
     }
 
     public void StartCombo(string comboType)
