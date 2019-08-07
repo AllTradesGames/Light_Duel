@@ -36,8 +36,6 @@ public class GameControl : PlayerBehavior
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        right = GameObject.FindGameObjectWithTag("right").transform;
-        left = GameObject.FindGameObjectWithTag("left").transform;
         ShowMenu(0);
 
         Application.runInBackground = true;
@@ -112,6 +110,8 @@ public class GameControl : PlayerBehavior
             NetworkObject.Flush(networker); //Called because we are already in the correct scene!
             Debug.Log("Instantiate Player Server");
             mgr.InstantiateMovementHead(0, new Vector3(2f, 2.5f, -31.26f), Quaternion.Euler(Vector3.zero));
+            right = GameObject.FindGameObjectWithTag("right").transform;
+            left = GameObject.FindGameObjectWithTag("left").transform;
         }
         else
         {
@@ -126,6 +126,8 @@ public class GameControl : PlayerBehavior
         MainThreadManager.Run(() => {
             Debug.Log("Instantiate Player Client");
             mgr.InstantiateMovementHead(0, new Vector3(2f, 2.5f, 11.5f), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+            right = GameObject.FindGameObjectWithTag("right").transform;
+            left = GameObject.FindGameObjectWithTag("left").transform;
         });
     }
 
