@@ -128,6 +128,8 @@ public class GameControl : PlayerBehavior
         MainThreadManager.Run(() => {
             Debug.Log("Instantiate Player Client");
             mgr.InstantiateMovementHead(0, new Vector3(2f, 2.5f, 11.5f), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+
+            Debug.Log(menuItems[0]);
             menuItems[0].transform.parent.position = new Vector3(2f, 2.5f, 11.5f);
             menuItems[0].transform.parent.rotation = Quaternion.Euler(new Vector3(0f, 180f, 0f));
             right = GameObject.FindGameObjectWithTag("right").transform;
