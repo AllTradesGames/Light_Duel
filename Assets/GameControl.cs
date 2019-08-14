@@ -32,6 +32,9 @@ public class GameControl : PlayerBehavior
     private Transform left;
     private string selectedWeapon = "SWORD";
 
+    private int readyPlayers = 0;
+    private MoveHead myPlayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -110,6 +113,7 @@ public class GameControl : PlayerBehavior
             NetworkObject.Flush(networker); //Called because we are already in the correct scene!
             Debug.Log("Instantiate Player Server");
             mgr.InstantiateMovementHead(0, new Vector3(2f, 2.5f, -31.26f), Quaternion.Euler(Vector3.zero));
+            myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<MoveHead>();
             menuItems[0].transform.parent.position = new Vector3(2f, 2.5f, -31.26f);
             menuItems[0].transform.parent.rotation = Quaternion.Euler(Vector3.zero);
             right = GameObject.FindGameObjectWithTag("right").transform;
@@ -144,7 +148,8 @@ public class GameControl : PlayerBehavior
     public void OnPlaySlash()
     {
         HideMenu(0);
-
+        OnOpponentFound();
+        myPlayer.SendReadyRPC();
     }
 
     public void OnWeaponSlash() 
@@ -196,22 +201,13 @@ public class GameControl : PlayerBehavior
         ShowMenu(0);
     }
 
-    private void OnOpponentFound()
+    public void OnOpponentFound()
     {
-        if (isHost)
+        readyPlayers++;
+        Debug.Log("opponents ready "+ readyPlayers);
+        if (readyPlayers > 1 && isHost)
         {
-            if (CoinFlip())
-            {
-                // We go first
-                if (comboScript != null)
-                {
-                }
-            }
-            else
-            {
-                // Opponent goes first
-                // TODO: Call pass turn RPC
-            }
+            comboScript.StartCombo(selectedWeapon);
         }
     }
 

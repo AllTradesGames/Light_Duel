@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BeardedManStudios.Forge.Networking.Generated;
+using BeardedManStudios.Forge.Networking;
 
 public class MoveHead : MovementHeadBehavior
 {
@@ -9,9 +10,12 @@ public class MoveHead : MovementHeadBehavior
     private Transform leftHand;
     private Transform rightHand;
 
+    private GameControl controlScript;
+
     // Start is called before the first frame update
     void Start()
     {
+        controlScript = GameObject.FindGameObjectWithTag("GameControl").GetComponent<GameControl>();
         if (networkObject.IsOwner)
         {
             Destroy(transform.Find("RemotePlayer").gameObject);
@@ -52,5 +56,15 @@ public class MoveHead : MovementHeadBehavior
             rightHand.rotation = networkObject.rightRotation;
         }
 
+    }
+
+    public void SendReadyRPC()
+    {
+        networkObject.SendRpc(RPC_READY, Receivers.All);
+    }
+
+    public override void Ready(RpcArgs args)
+    {
+        controlScript.OnOpponentFound();
     }
 }
