@@ -182,6 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160dcae662447bb4eba5ec2d93302f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DonutAttackPreFab: {fileID: 2221389149711421155, guid: 54ae0fd2c7d322b41840be8156015f69,
+    type: 3}
 --- !u!1 &6767295646739648772
 GameObject:
   m_ObjectHideFlags: 0
