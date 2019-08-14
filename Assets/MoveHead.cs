@@ -15,7 +15,7 @@ public class MoveHead : MovementHeadBehavior
     // Start is called before the first frame update
     void Start()
     {
-        controlScript = GameObject.FindGameObjectWithTag("GameControl").GetComponent<GameControl>();
+        controlScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControl>();
         if (networkObject.IsOwner)
         {
             Destroy(transform.Find("RemotePlayer").gameObject);
