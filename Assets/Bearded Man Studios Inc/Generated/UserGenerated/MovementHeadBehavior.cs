@@ -4,12 +4,13 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedRPC("{\"types\":[[][\"Vector3\", \"Quaternion\"]]")]
-	[GeneratedRPCVariableNames("{\"types\":[[][\"position\", \"rotation\"]]")]
+	[GeneratedRPC("{\"types\":[[][\"Vector3\", \"Quaternion\"][\"Vector3\", \"Quaternion\"]]")]
+	[GeneratedRPCVariableNames("{\"types\":[[][\"position\", \"rotation\"][\"position\", \"rotation\"]]")]
 	public abstract partial class MovementHeadBehavior : NetworkBehavior
 	{
 		public const byte RPC_READY = 0 + 5;
 		public const byte RPC_SPAWN_STAB = 1 + 5;
+		public const byte RPC_SPAWN_SLASH = 2 + 5;
 		
 		public MovementHeadNetworkObject networkObject = null;
 
@@ -25,6 +26,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			base.SetupHelperRpcs(networkObject);
 			networkObject.RegisterRpc("Ready", Ready);
 			networkObject.RegisterRpc("SpawnStab", SpawnStab, typeof(Vector3), typeof(Quaternion));
+			networkObject.RegisterRpc("SpawnSlash", SpawnSlash, typeof(Vector3), typeof(Quaternion));
 
 			networkObject.onDestroy += DestroyGameObject;
 
@@ -109,6 +111,10 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		/// Arguments:
 		/// </summary>
 		public abstract void SpawnStab(RpcArgs args);
+		/// <summary>
+		/// Arguments:
+		/// </summary>
+		public abstract void SpawnSlash(RpcArgs args);
 
 		// DO NOT TOUCH, THIS GETS GENERATED PLEASE EXTEND THIS CLASS IF YOU WISH TO HAVE CUSTOM CODE ADDITIONS
 	}

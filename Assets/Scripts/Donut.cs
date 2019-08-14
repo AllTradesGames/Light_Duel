@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Donut : Movement
 {
-    public bool isLast;
 
     void OnTriggerEnter(Collider other)
     {

@@ -13,6 +13,7 @@ public class MoveHead : MovementHeadBehavior
     private GameControl controlScript;
 
     public GameObject DonutAttackPreFab;
+    public GameObject DoritoAttackPreFab;
 
     // Start is called before the first frame update
     void Start()
@@ -80,5 +81,17 @@ public class MoveHead : MovementHeadBehavior
         Vector3 position = args.GetNext<Vector3>();
         Quaternion rotation = args.GetNext<Quaternion>();
         Instantiate(DonutAttackPreFab, position, rotation);
+    }
+
+    public void SpawnSlash(Vector3 position, Quaternion rotation)
+    {
+        networkObject.SendRpc(RPC_SPAWN_SLASH, Receivers.All, position, rotation);
+    }
+
+    public override void SpawnSlash(RpcArgs args)
+    {
+        Vector3 position = args.GetNext<Vector3>();
+        Quaternion rotation = args.GetNext<Quaternion>();
+        Instantiate(DoritoAttackPreFab, position, rotation);
     }
 }

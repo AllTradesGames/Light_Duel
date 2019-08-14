@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Dorito : Movement
 {
-    public GameObject AttackPreFab;
 
     void OnTriggerEnter(Collider other)
     {
@@ -48,8 +47,7 @@ public class Dorito : Movement
     void OnTargetSuccess()
     {
         Debug.Log("Dorito slashed successfully");
-        Instantiate(AttackPreFab, transform.position, transform.rotation);
-        // TODO: Call network spawn attack
+        myPlayer.SpawnSlash(transform.position, transform.rotation);
     }
 
     void OnTargetFail()
