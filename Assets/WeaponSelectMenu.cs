@@ -9,7 +9,8 @@ public class WeaponSelectMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        if (controlScript == null)
+            controlScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControl>();
     }
 
     // Update is called once per frame
