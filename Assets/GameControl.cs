@@ -113,7 +113,6 @@ public class GameControl : PlayerBehavior
             NetworkObject.Flush(networker); //Called because we are already in the correct scene!
             Debug.Log("Instantiate Player Server");
             mgr.InstantiateMovementHead(0, new Vector3(2f, 2.5f, -31.26f), Quaternion.Euler(Vector3.zero));
-            myPlayer = GameObject.FindGameObjectWithTag("Player").transform.root.GetComponent<MoveHead>();
             menuItems[0].transform.parent.position = new Vector3(2f, 2.5f, -31.26f);
             menuItems[0].transform.parent.rotation = Quaternion.Euler(Vector3.zero);
             right = GameObject.FindGameObjectWithTag("right").transform;
@@ -148,6 +147,7 @@ public class GameControl : PlayerBehavior
     public void OnPlaySlash()
     {
         HideMenu(0);
+        myPlayer = GameObject.FindGameObjectWithTag("Player").transform.root.GetComponent<MoveHead>();
         myPlayer.SendReadyRPC();
     }
 
