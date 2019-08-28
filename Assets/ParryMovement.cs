@@ -39,7 +39,7 @@ public class ParryMovement : AttackMovement
         switch (other.tag)
         {
             case "weapon":
-                if (!isParried)
+                if (false/*!isParried*/)
                 {
                     isParried = true;
                     transform.parent = other.transform;
