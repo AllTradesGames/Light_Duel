@@ -65,7 +65,7 @@ public class MoveHead : MovementHeadBehavior
 
     public void SendReadyRPC()
     {
-        networkObject.SendRpc(RPC_READY, Receivers.All);
+        networkObject.SendRpc(RPC_READY, Receivers.Others);
     }
 
     public override void Ready(RpcArgs args)

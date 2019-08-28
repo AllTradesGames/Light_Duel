@@ -149,6 +149,7 @@ public class GameControl : PlayerBehavior
         HideMenu(0);
         myPlayer = GameObject.FindGameObjectWithTag("Player").transform.root.GetComponent<MoveHead>();
         myPlayer.SendReadyRPC();
+        OnOpponentFound(false);
     }
 
     public void OnWeaponSlash() 
