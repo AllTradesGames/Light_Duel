@@ -98,6 +98,7 @@ public class GameControl : PlayerBehavior
     public void Connected(NetWorker networker)
     {
         Debug.Log("Connected as: " + (networker is IServer ? "host" : "client"));
+        isHost = (networker is IServer);
         if (!networker.IsBound)
         {
             Debug.LogError("NetWorker failed to bind");
@@ -109,7 +110,6 @@ public class GameControl : PlayerBehavior
 
         if (networker is IServer)
         {
-            isHost = true;
             NetworkObject.Flush(networker); //Called because we are already in the correct scene!
             Debug.Log("Instantiate Player Server");
             mgr.InstantiateMovementHead(0, new Vector3(2f, 2.5f, -31.26f), Quaternion.Euler(Vector3.zero));
@@ -206,13 +206,9 @@ public class GameControl : PlayerBehavior
         Debug.Log("opponents ready "+ readyPlayers);
         if (readyPlayers > 1 && isHost)
         {
+            Debug.Log("isHost " + isHost);
             comboScript.StartCombo(selectedWeapon);
         }
-    }
-
-    public bool CoinFlip()
-    {
-        return true;
     }
 
     public void EndMatch(int winningPlayerID)
