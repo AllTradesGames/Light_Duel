@@ -19,7 +19,7 @@ public class ParryMovement : AttackMovement
     {
         if (!isParried)
         {
-            transform.Translate((transform.position - target.position).normalized * speed * Time.deltaTime);
+            transform.Translate((target.position - transform.position).normalized * speed * Time.deltaTime);
             transform.LookAt(target.position);
         }
     }
