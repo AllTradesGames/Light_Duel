@@ -184,6 +184,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DonutAttackPreFab: {fileID: 2221389149711421155, guid: 54ae0fd2c7d322b41840be8156015f69,
     type: 3}
+  DoritoAttackPreFab: {fileID: 4969555856004351823, guid: 587201167181140719679eec863bc13b,
+    type: 3}
 --- !u!1 &6767295646739648772
 GameObject:
   m_ObjectHideFlags: 0

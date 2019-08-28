@@ -73,6 +73,7 @@ public class MoveHead : MovementHeadBehavior
 
     public void SpawnStab(Vector3 position, Quaternion rotation)
     {
+        Debug.Log("movehead");
         networkObject.SendRpc(RPC_SPAWN_STAB, Receivers.All, position, rotation);
     }
 

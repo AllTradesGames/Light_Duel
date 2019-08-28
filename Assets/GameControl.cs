@@ -287,6 +287,7 @@ public class GameControl : PlayerBehavior
     int type,
     bool isLast)
     {
+        Debug.Log("gamecontroller");
         networkObject.SendRpc(RPC_SPAWN_ATTACK, Receivers.All, pos, rotation, speed, type, isLast);
     }
 
