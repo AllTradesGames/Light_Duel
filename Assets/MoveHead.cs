@@ -97,6 +97,8 @@ public class MoveHead : MovementHeadBehavior
         Vector3 position = args.GetNext<Vector3>();
         Quaternion rotation = args.GetNext<Quaternion>();
         int attackTeam = args.GetNext<int>();
+        Debug.Log("team " + team);
+        Debug.Log("attack " + attackTeam);
         string targetTag = team == attackTeam ? "Enemy" : "Player";
         Instantiate(DoritoAttackPreFab, position, rotation).GetComponent<AttackMovement>().targetTag = targetTag;
     }
