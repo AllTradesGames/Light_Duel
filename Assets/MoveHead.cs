@@ -12,8 +12,10 @@ public class MoveHead : MovementHeadBehavior
 
     private GameControl controlScript;
 
+    public int team;
     public GameObject DonutAttackPreFab;
     public GameObject DoritoAttackPreFab;
+
 
     // Start is called before the first frame update
     void Start()
@@ -68,25 +70,26 @@ public class MoveHead : MovementHeadBehavior
 
     public override void Ready(RpcArgs args)
     {
-        controlScript.OnOpponentFound();
+        controlScript.OnOpponentFound(true);
     }
 
     public void SpawnStab(Vector3 position, Quaternion rotation)
     {
-        Debug.Log("movehead");
-        networkObject.SendRpc(RPC_SPAWN_STAB, Receivers.All, position, rotation);
+        networkObject.SendRpc(RPC_SPAWN_STAB, Receivers.All, position, rotation, team);
     }
 
     public override void SpawnStab(RpcArgs args)
     {
         Vector3 position = args.GetNext<Vector3>();
         Quaternion rotation = args.GetNext<Quaternion>();
-        Instantiate(DonutAttackPreFab, position, rotation);
+        int attackTeam = args.GetNext<int>();
+        string targetTag = team == attackTeam ? "Enemy" : "Player";
+        Instantiate(DonutAttackPreFab, position, rotation).GetComponent<AttackMovement>().targetTag = targetTag;
     }
 
     public void SpawnSlash(Vector3 position, Quaternion rotation)
     {
-        networkObject.SendRpc(RPC_SPAWN_SLASH, Receivers.All, position, rotation);
+        networkObject.SendRpc(RPC_SPAWN_SLASH, Receivers.All, position, rotation, team);
     }
 
     public override void SpawnSlash(RpcArgs args)

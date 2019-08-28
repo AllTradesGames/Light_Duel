@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedRPC("{\"types\":[[][\"Vector3\", \"Quaternion\"][\"Vector3\", \"Quaternion\"]]")]
-	[GeneratedRPCVariableNames("{\"types\":[[][\"position\", \"rotation\"][\"position\", \"rotation\"]]")]
+	[GeneratedRPC("{\"types\":[[][\"Vector3\", \"Quaternion\", \"string\"][\"Vector3\", \"Quaternion\", \"string\"]]")]
+	[GeneratedRPCVariableNames("{\"types\":[[][\"position\", \"rotation\", \"team\"][\"position\", \"rotation\", \"team\"]]")]
 	public abstract partial class MovementHeadBehavior : NetworkBehavior
 	{
 		public const byte RPC_READY = 0 + 5;
@@ -25,8 +25,8 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 			base.SetupHelperRpcs(networkObject);
 			networkObject.RegisterRpc("Ready", Ready);
-			networkObject.RegisterRpc("SpawnStab", SpawnStab, typeof(Vector3), typeof(Quaternion));
-			networkObject.RegisterRpc("SpawnSlash", SpawnSlash, typeof(Vector3), typeof(Quaternion));
+			networkObject.RegisterRpc("SpawnStab", SpawnStab, typeof(Vector3), typeof(Quaternion), typeof(string));
+			networkObject.RegisterRpc("SpawnSlash", SpawnSlash, typeof(Vector3), typeof(Quaternion), typeof(string));
 
 			networkObject.onDestroy += DestroyGameObject;
 

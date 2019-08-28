@@ -200,9 +200,13 @@ public class GameControl : PlayerBehavior
         ShowMenu(0);
     }
 
-    public void OnOpponentFound()
+    public void OnOpponentFound(bool isRPC)
     {
         readyPlayers++;
+        if (!isRPC)
+        {
+            myPlayer.team = readyPlayers;
+        }
         Debug.Log("opponents ready "+ readyPlayers);
         if (readyPlayers > 1 && isHost)
         {
@@ -280,32 +284,6 @@ public class GameControl : PlayerBehavior
         if (!alreadyClient)
             Host();
     }
-
-    public void SpawnStab(Vector3 pos, 
-    Quaternion rotation,
-    float speed,
-    int type,
-    bool isLast)
-    {
-        Debug.Log("gamecontroller");
-        networkObject.SendRpc(RPC_SPAWN_ATTACK, Receivers.All, pos, rotation, speed, type, isLast);
-    }
-
-    public override void SpawnAttack(RpcArgs args)
-    {
-        Vector3 pos = args.GetNext<Vector3>();
-        Quaternion rotation = args.GetNext<Quaternion>();
-        float  speed = args.GetNext<float>();
-        int type = args.GetNext<int>();
-        bool isLast = args.GetNext<bool>();
-        GameObject attack = Instantiate(attackPreFabs[type], pos, rotation);
-        AttackMovement attackScript = attack.GetComponent<AttackMovement>();
-        attackScript.speed = speed;
-        attackScript.isLast = isLast;
-
-    }
-
-
 
     void TakeDamage(int amount)
     {

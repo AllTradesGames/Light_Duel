@@ -4,13 +4,12 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedRPC("{\"types\":[[\"Vector3\", \"Quaternion\", \"float\", \"int\", \"bool\"][\"int\"][]]")]
-	[GeneratedRPCVariableNames("{\"types\":[[\"Location\", \"Rotation\", \"Speed\", \"Type\", \"IsLast\"][\"Health\"][]]")]
+	[GeneratedRPC("{\"types\":[[\"int\"][]]")]
+	[GeneratedRPCVariableNames("{\"types\":[[\"Health\"][]]")]
 	public abstract partial class PlayerBehavior : NetworkBehavior
 	{
-		public const byte RPC_SPAWN_ATTACK = 0 + 5;
-		public const byte RPC_DECREASE_HEALTH = 1 + 5;
-		public const byte RPC_I_DIED = 2 + 5;
+		public const byte RPC_DECREASE_HEALTH = 0 + 5;
+		public const byte RPC_I_DIED = 1 + 5;
 		
 		public PlayerNetworkObject networkObject = null;
 
@@ -24,7 +23,6 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			networkObject.AttachedBehavior = this;
 
 			base.SetupHelperRpcs(networkObject);
-			networkObject.RegisterRpc("SpawnAttack", SpawnAttack, typeof(Vector3), typeof(Quaternion), typeof(float), typeof(int), typeof(bool));
 			networkObject.RegisterRpc("DecreaseHealth", DecreaseHealth, typeof(int));
 			networkObject.RegisterRpc("IDied", IDied);
 
@@ -103,15 +101,6 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			networkObject.SnapInterpolations();
 		}
 
-		/// <summary>
-		/// Arguments:
-		/// Vector3 Location
-		/// Quaternion Rotation
-		/// float Speed
-		/// int Type
-		/// bool IsLast
-		/// </summary>
-		public abstract void SpawnAttack(RpcArgs args);
 		/// <summary>
 		/// Arguments:
 		/// int Health
