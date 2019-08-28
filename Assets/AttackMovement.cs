@@ -11,7 +11,7 @@ public class AttackMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Enemy").transform;
+        target = GameObject.FindGameObjectWithTag(targetTag).transform;
     }
 
     // Update is called once per frame
