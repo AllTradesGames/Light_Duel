@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedRPC("{\"types\":[[][\"Vector3\", \"Quaternion\", \"string\"][\"Vector3\", \"Quaternion\", \"string\"]]")]
+	[GeneratedRPC("{\"types\":[[][\"Vector3\", \"Quaternion\", \"int\"][\"Vector3\", \"Quaternion\", \"int\"]]")]
 	[GeneratedRPCVariableNames("{\"types\":[[][\"position\", \"rotation\", \"team\"][\"position\", \"rotation\", \"team\"]]")]
 	public abstract partial class MovementHeadBehavior : NetworkBehavior
 	{
@@ -25,8 +25,8 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 			base.SetupHelperRpcs(networkObject);
 			networkObject.RegisterRpc("Ready", Ready);
-			networkObject.RegisterRpc("SpawnStab", SpawnStab, typeof(Vector3), typeof(Quaternion), typeof(string));
-			networkObject.RegisterRpc("SpawnSlash", SpawnSlash, typeof(Vector3), typeof(Quaternion), typeof(string));
+			networkObject.RegisterRpc("SpawnStab", SpawnStab, typeof(Vector3), typeof(Quaternion), typeof(int));
+			networkObject.RegisterRpc("SpawnSlash", SpawnSlash, typeof(Vector3), typeof(Quaternion), typeof(int));
 
 			networkObject.onDestroy += DestroyGameObject;
 
