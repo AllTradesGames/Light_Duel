@@ -4,13 +4,16 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedRPC("{\"types\":[[][\"Vector3\", \"Quaternion\", \"int\"][\"Vector3\", \"Quaternion\", \"int\"]]")]
-	[GeneratedRPCVariableNames("{\"types\":[[][\"position\", \"rotation\", \"team\"][\"position\", \"rotation\", \"team\"]]")]
+	[GeneratedRPC("{\"types\":[[][\"Vector3\", \"Quaternion\", \"int\"][\"Vector3\", \"Quaternion\", \"int\"][][][]]")]
+	[GeneratedRPCVariableNames("{\"types\":[[][\"position\", \"rotation\", \"team\"][\"position\", \"rotation\", \"team\"][][][]]")]
 	public abstract partial class MovementHeadBehavior : NetworkBehavior
 	{
 		public const byte RPC_READY = 0 + 5;
 		public const byte RPC_SPAWN_STAB = 1 + 5;
 		public const byte RPC_SPAWN_SLASH = 2 + 5;
+		public const byte RPC_PASS_TURN = 3 + 5;
+		public const byte RPC_TAKE_DAMAGE = 4 + 5;
+		public const byte RPC_YOU_DIED = 5 + 5;
 		
 		public MovementHeadNetworkObject networkObject = null;
 
@@ -27,6 +30,9 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			networkObject.RegisterRpc("Ready", Ready);
 			networkObject.RegisterRpc("SpawnStab", SpawnStab, typeof(Vector3), typeof(Quaternion), typeof(int));
 			networkObject.RegisterRpc("SpawnSlash", SpawnSlash, typeof(Vector3), typeof(Quaternion), typeof(int));
+			networkObject.RegisterRpc("PassTurn", PassTurn);
+			networkObject.RegisterRpc("TakeDamage", TakeDamage);
+			networkObject.RegisterRpc("YouDied", YouDied);
 
 			networkObject.onDestroy += DestroyGameObject;
 
@@ -115,6 +121,18 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		/// Arguments:
 		/// </summary>
 		public abstract void SpawnSlash(RpcArgs args);
+		/// <summary>
+		/// Arguments:
+		/// </summary>
+		public abstract void PassTurn(RpcArgs args);
+		/// <summary>
+		/// Arguments:
+		/// </summary>
+		public abstract void TakeDamage(RpcArgs args);
+		/// <summary>
+		/// Arguments:
+		/// </summary>
+		public abstract void YouDied(RpcArgs args);
 
 		// DO NOT TOUCH, THIS GETS GENERATED PLEASE EXTEND THIS CLASS IF YOU WISH TO HAVE CUSTOM CODE ADDITIONS
 	}

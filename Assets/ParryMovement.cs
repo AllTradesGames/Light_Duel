@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ParryMovement : AttackMovement
 {
-    private Transform target;
     private bool isParried = false;
     private Vector3 lastPosition;
     private Quaternion lastRotation;

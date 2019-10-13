@@ -6,7 +6,7 @@ using BeardedManStudios.Forge.Networking.Unity;
 using BeardedManStudios.SimpleJSON;
 using BeardedManStudios.Forge.Networking.Generated;
 
-public class GameControl : PlayerBehavior
+public class GameControl : MonoBehaviour
 
 {
     public GameObject[] attackPreFabs;
@@ -26,11 +26,12 @@ public class GameControl : PlayerBehavior
     private Coroutine findWifiHost = null;
     private bool alreadyClient = false;
 
-    private int health = 10;
+    public int health = 10;
+    public int opponentHealth = 10;
 
     private Transform right;
     private Transform left;
-    private string selectedWeapon = "SWORD";
+    public string selectedWeapon = "SWORD";
 
     private int readyPlayers = 0;
     private MoveHead myPlayer;
@@ -50,7 +51,7 @@ public class GameControl : PlayerBehavior
 
         if (useMainThreadManagerForRPCs)
             Rpc.MainThreadRunner = MainThreadManager.Instance;
-        
+
         NetWorker.localServerLocated += LocalServerLocated;
         findWifiHost = StartCoroutine(CheckForLocalHost());
     }
@@ -70,7 +71,7 @@ public class GameControl : PlayerBehavior
     public void Host()
     {
         server = new UDPServer(64);
-        
+
         ((UDPServer)server).Connect(GetLocalIPAddress(), portNumber);
 
         server.playerTimeout += (player, sender) =>
@@ -128,7 +129,8 @@ public class GameControl : PlayerBehavior
     public void OnAccepted(NetWorker sender)
     {
         NetworkObject.Flush(sender);
-        MainThreadManager.Run(() => {
+        MainThreadManager.Run(() =>
+        {
             Debug.Log("Instantiate Player Client");
             mgr.InstantiateMovementHead(0, new Vector3(2f, 2.5f, 11.5f), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
             menuItems[0].transform.parent.position = new Vector3(2f, 2.5f, 11.5f);
@@ -152,7 +154,7 @@ public class GameControl : PlayerBehavior
         OnOpponentFound(false);
     }
 
-    public void OnWeaponSlash() 
+    public void OnWeaponSlash()
     {
         Debug.Log("Pick your weapon");
         HideMenu(0);
@@ -179,13 +181,14 @@ public class GameControl : PlayerBehavior
     public void OnSwordAndShieldSlash()
     {
         Debug.Log("coward");
-        if (right.Find("Shield").gameObject.active || right.Find("Viking sword").gameObject.active && left.Find("Viking sword").gameObject.active)
+        if (right.Find("Shield").gameObject.activeSelf || right.Find("Viking sword").gameObject.activeSelf && left.Find("Viking sword").gameObject.activeSelf)
         {
             right.Find("Viking sword").gameObject.SetActive(true);
             left.Find("Viking sword").gameObject.SetActive(false);
             left.Find("Shield").gameObject.SetActive(true);
             right.Find("Shield").gameObject.SetActive(false);
-        } else if (left.Find("Shield").gameObject.active)
+        }
+        else if (left.Find("Shield").gameObject.activeSelf)
         {
             left.Find("Viking sword").gameObject.SetActive(true);
             right.Find("Viking sword").gameObject.SetActive(false);
@@ -208,33 +211,30 @@ public class GameControl : PlayerBehavior
         {
             myPlayer.team = readyPlayers;
         }
-        Debug.Log("opponents ready "+ readyPlayers);
-        if (readyPlayers > 1 && isHost)
+        Debug.Log("opponents ready " + readyPlayers);
+        if (readyPlayers > 1)
         {
-            Debug.Log("isHost " + isHost);
-            comboScript.StartCombo(selectedWeapon);
-        }
-    }
-
-    public void EndMatch(int winningPlayerID)
-    {
-        if (winningPlayerID == playerID)
-        {
-            ShowYeetSign();
-        } else
-        {
-            ShowNoobSign();
+            if (isHost)
+            {
+                Debug.Log("isHost " + isHost);
+                comboScript.StartCombo(selectedWeapon);
+            }
+            readyPlayers = 0;
         }
     }
 
     public void ShowYeetSign()
     {
-
+        this.comboScript.comboing = false;
+        ShowMenu(0);
+        Debug.Log("You WIN!!");
     }
 
     public void ShowNoobSign()
     {
-
+        this.comboScript.comboing = false;
+        ShowMenu(0);
+        Debug.Log("You lose, get gud scrub.");
     }
 
     public void ShowMenu(int menuID)
@@ -286,26 +286,21 @@ public class GameControl : PlayerBehavior
             Host();
     }
 
-    void TakeDamage(int amount)
+    public void DecreaseHealth()
     {
-        networkObject.SendRpc(RPC_DECREASE_HEALTH, Receivers.All, amount);
-    }
-
-    public override void DecreaseHealth(RpcArgs args)
-    {
-        // TODO which player takes the damage?
-        int damage = args.GetNext<int>();
+        // TODO how much damage?
         Debug.Log("ouch i took damage");
-        health -= damage;
-        if (health<1)
+        health -= 1;
+        if (health < 1)
         {
-
-            networkObject.SendRpc(RPC_I_DIED, Receivers.All);
+            this.myPlayer.YouDied();
         }
     }
 
-    public override void IDied(RpcArgs args)
+    public void DecreaseOpponentHealth()
     {
-        Debug.Log("I died");
+        // TODO how much damage?
+        Debug.Log("sweet my opponent took damage");
+        opponentHealth -= 1;
     }
 }

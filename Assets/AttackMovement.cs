@@ -7,7 +7,7 @@ public class AttackMovement : MonoBehaviour
     public float speed = 10f;
     public bool isLast;
     public string targetTag;
-    private Transform target;
+    protected Transform target;
     // Start is called before the first frame update
     void Start()
     {

@@ -11,6 +11,7 @@ public class MoveHead : MovementHeadBehavior
     private Transform rightHand;
 
     private GameControl controlScript;
+    private ComboController comboScript;
 
     public int team;
     public GameObject DonutAttackPreFab;
@@ -21,6 +22,7 @@ public class MoveHead : MovementHeadBehavior
     void Start()
     {
         controlScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControl>();
+        comboScript = GameObject.FindGameObjectWithTag("ComboController").GetComponent<ComboController>();
         if (networkObject.IsOwner)
         {
             Destroy(transform.Find("RemotePlayer").gameObject);
@@ -101,5 +103,38 @@ public class MoveHead : MovementHeadBehavior
         Debug.Log("attack " + attackTeam);
         string targetTag = team == attackTeam ? "Enemy" : "Player";
         Instantiate(DoritoAttackPreFab, position, rotation).GetComponent<AttackMovement>().targetTag = targetTag;
+    }
+
+    public void PassTurn()
+    {
+        networkObject.SendRpc(RPC_PASS_TURN, Receivers.Others);
+    }
+
+    public override void PassTurn(RpcArgs args)
+    {
+        this.comboScript.AddCombosCompleted();
+        this.comboScript.StartCombo(this.controlScript.selectedWeapon);
+    }
+
+    public void TakeDamage()
+    {
+        this.controlScript.DecreaseHealth();
+        networkObject.SendRpc(RPC_TAKE_DAMAGE, Receivers.Others);
+    }
+
+    public override void TakeDamage(RpcArgs args)
+    {
+        this.controlScript.DecreaseOpponentHealth();
+    }
+
+    public void YouDied()
+    {
+        this.controlScript.ShowNoobSign();
+        networkObject.SendRpc(RPC_YOU_DIED, Receivers.Others);
+    }
+
+    public override void YouDied(RpcArgs args)
+    {
+        this.controlScript.ShowYeetSign();
     }
 }

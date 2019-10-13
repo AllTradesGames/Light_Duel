@@ -94,10 +94,11 @@ public class ComboController : MonoBehaviour
     private List<Target> currentCombo = new List<Target>();
     private List<Target> currentCombo2 = new List<Target>();
     private List<List<Target>> comboList = new List<List<Target>>();
-    private int combosCompleted = 0;
-    private bool comboing = false;
+    public int combosCompleted = 0;
+    public bool comboing = false;
     private bool isDual = false;
     private int[] indices;
+    private MoveHead myPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -106,9 +107,7 @@ public class ComboController : MonoBehaviour
 
     public void StartCombo(string comboType)
     {
-        comboing = true;
-        comboTimer = 0f;
-        currentTarget = 0;
+        myPlayer = GameObject.FindGameObjectWithTag("Player").transform.root.GetComponent<MoveHead>();
         switch (comboType)
         {
             case "SWORD":
@@ -125,7 +124,7 @@ public class ComboController : MonoBehaviour
                 break;
 
             case "DUALSWORD":
-                // Build sword combo
+                // Build dual sword combo
                 isDual = true;
                 comboLength = 6;
                 currentCombo2.Clear();
@@ -139,21 +138,26 @@ public class ComboController : MonoBehaviour
                 break;
 
         }
+        comboing = true;
+        comboTimer = 0f;
+        currentTarget = 0;
     }
+
     // Update is called once per frame
     void Update()
     {
         if (comboing)
         {
-            float Offset = isDual ? 0.5f: 0f;
+            float Offset = isDual ? 0.5f : 0f;
             comboTimer += Time.deltaTime;
             while (comboTimer >= timeBetweenTargets)
             {
                 // Instantiate it
                 GameObject target;
                 Movement targetScript;
-                if (currentCombo[indices[currentTarget]] != null){
-                    target = Instantiate(targetPreFabs[currentCombo[indices[currentTarget]].type], Vector3.zero, transform.rotation*Quaternion.Euler(0f, 0f, currentCombo[indices[currentTarget]].angle), transform);
+                if (currentCombo[indices[currentTarget]] != null)
+                {
+                    target = Instantiate(targetPreFabs[currentCombo[indices[currentTarget]].type], Vector3.zero, transform.rotation * Quaternion.Euler(0f, 0f, currentCombo[indices[currentTarget]].angle), transform);
                     target.transform.localPosition = new Vector3(-Offset, Random.Range(-0.2f, 0.8f));
                     target.transform.parent = null;
                     targetScript = target.GetComponent<Movement>();
@@ -165,7 +169,7 @@ public class ComboController : MonoBehaviour
                 }
                 if (isDual && currentCombo2[indices[currentTarget]] != null)
                 {
-                    target = Instantiate(targetPreFabs[currentCombo2[indices[currentTarget]].type], Vector3.zero, transform.rotation*Quaternion.Euler(0f, 0f, currentCombo2[indices[currentTarget]].angle), transform);
+                    target = Instantiate(targetPreFabs[currentCombo2[indices[currentTarget]].type], Vector3.zero, transform.rotation * Quaternion.Euler(0f, 0f, currentCombo2[indices[currentTarget]].angle), transform);
                     target.transform.localPosition = new Vector3(Offset, Random.Range(-0.2f, 0.8f));
                     target.transform.parent = null;
                     targetScript = target.GetComponent<Movement>();
@@ -188,6 +192,13 @@ public class ComboController : MonoBehaviour
     void EndCombo()
     {
         comboing = false;
+        this.AddCombosCompleted();
+        this.myPlayer.PassTurn();
+        Debug.Log("hey the combo died");
+    }
+
+    public void AddCombosCompleted() 
+    {
         combosCompleted++;
         if (combosCompleted % 2 == 0)
         {
@@ -197,12 +208,8 @@ public class ComboController : MonoBehaviour
             {
                 timeBetweenTargets = timeDecreasePerRound;
             }
-            // TODO: Add/Check score
         }
-        // TODO: Next Player's Turn
-        Debug.Log("hey the combo died");
     }
-
 
     void Shuffle(int[] indices)
     {
@@ -212,10 +219,7 @@ public class ComboController : MonoBehaviour
             indices[t] = t;
         }
 
-         
-
-
-            for (int t = 0; t < indices.Length; t++)
+        for (int t = 0; t < indices.Length; t++)
         {
             int tmp = indices[t];
             int r = Random.Range(t, indices.Length);
