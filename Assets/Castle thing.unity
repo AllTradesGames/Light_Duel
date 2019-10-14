@@ -69345,6 +69345,9 @@ MonoBehaviour:
   portNumber: 5555
   useMainThreadManagerForRPCs: 1
   networkManager: {fileID: 186558, guid: 79adc0da5b6caf74990d862696696ecd, type: 3}
+  health: 10
+  opponentHealth: 10
+  selectedWeapon: SWORD
 --- !u!114 &8111171264418727800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69366,6 +69369,8 @@ MonoBehaviour:
   timeBetweenTargets: 0.85
   timeDecreasePerRound: 0.125
   distanceBetweenTargets: 8
+  combosCompleted: 0
+  comboing: 0
 --- !u!1 &8111171264418727801
 GameObject:
   m_ObjectHideFlags: 0
@@ -69378,7 +69383,7 @@ GameObject:
   - component: {fileID: 8111171264418727800}
   m_Layer: 0
   m_Name: ComboController
-  m_TagString: Untagged
+  m_TagString: ComboController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

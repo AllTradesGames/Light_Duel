@@ -14,6 +14,7 @@ TagManager:
   - slash attack
   - right
   - left
+  - ComboController
   layers:
   - Default
   - TransparentFX
